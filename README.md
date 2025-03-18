@@ -1,58 +1,42 @@
-# AI UX Feedback Tool
+# AI-Powered UI/UX Feedback Tool
 
-A modern web application that provides instant AI-powered UX feedback on UI designs. This tool allows designers to upload their UI mockups and receive automated analysis on usability, accessibility, and design flaws.
+A modern web application that uses AI to provide detailed UI/UX feedback on design uploads. Built with React, TypeScript, and Tailwind CSS.
 
 ## Features
 
-- **Instant UX Analysis**: Upload your UI design and get immediate feedback
-- **Accessibility Checks**: Identify accessibility issues in your designs
-- **Usability Recommendations**: Get actionable insights to improve user experience
-- **Dark/Light Mode**: Toggle between dark and light themes for comfortable viewing
+- **Design Upload**: Drag-and-drop interface for uploading UI designs
+- **Context Gathering**: Form to collect information about design context and goals
+- **AI Analysis**: Processing of designs with the Gemini Vision API
+- **Detailed Feedback**: AI-generated analysis of UX issues with specific areas highlighted
+- **Light/Dark Mode**: Full support for both light and dark color schemes
 
-## Technology Stack
+## Technical Stack
 
-- React
-- TypeScript
-- Tailwind CSS
-- Animation with pure CSS
+- React with TypeScript
+- Tailwind CSS for styling
+- React Router for navigation
+- Modern, responsive design with accessibility features
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js (v14 or later)
-- npm or yarn
-
-### Installation
-
 1. Clone the repository
-```bash
-git clone https://github.com/yourusername/uiuxfeedback.git
-cd uiuxfeedback
-```
+2. Install dependencies: `npm install`
+3. Start the development server: `npm start`
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-2. Install dependencies
-```bash
-npm install
-# or
-yarn
-```
+## Project Structure
 
-3. Start the development server
-```bash
-npm start
-# or
-yarn start
-```
+- `/src/components`: React components
+  - `ImageUpload.tsx`: Handles image uploads
+  - `FeedbackContext.tsx`: Form to gather design context
+  - `FeedbackResults.tsx`: Displays AI-generated feedback with highlighted issues
 
-4. Open your browser and navigate to `http://localhost:3000`
+## Future Enhancements
 
-## Usage
-
-1. Drag and drop your UI design file or click the upload button
-2. Wait a few seconds for the AI to analyze your design
-3. Review the feedback and suggested improvements
-4. Apply the recommendations to enhance your design
+- Integration with real design tools (Figma, Sketch)
+- Team collaboration features
+- Feedback history and comparison
+- Customizable feedback categories
 
 ## License
 

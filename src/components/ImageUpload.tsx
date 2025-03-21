@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { analyzeUIUX } from '../services/geminiService';
 
 const ImageUpload: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
@@ -7,6 +8,8 @@ const ImageUpload: React.FC = () => {
   const [preview, setPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
@@ -62,33 +65,66 @@ const ImageUpload: React.FC = () => {
     reader.readAsDataURL(uploadedFile);
   };
 
-  const simulateUpload = () => {
+  const simulateUpload = async () => {
+    if (!file) return;
+    
     setUploading(true);
     setUploadProgress(0);
+    setAnalyzing(true);
     
-    // Simulate progress
-    const interval = setInterval(() => {
-      setUploadProgress(prevProgress => {
-        const newProgress = prevProgress + 10;
-        if (newProgress >= 100) {
-          clearInterval(interval);
-          
-          // Store the image in session storage to pass to the next page
-          if (preview) {
-            sessionStorage.setItem('uploadedImage', preview);
-            sessionStorage.setItem('uploadedFileName', file?.name || 'Uploaded Image');
-          }
-          
-          // Navigate to the feedback context page after "upload" completes
-          setTimeout(() => {
-            navigate('/feedback-context');
-          }, 500);
-          
-          return 100;
-        }
-        return newProgress;
-      });
+    // Simulate initial upload progress
+    let progress = 0;
+    const uploadInterval = setInterval(() => {
+      progress += 10;
+      setUploadProgress(progress);
+      if (progress >= 50) {
+        clearInterval(uploadInterval);
+        // After reaching 50%, start analyzing with Gemini API
+        processWithGemini();
+      }
     }, 200);
+  };
+
+  const processWithGemini = async () => {
+    if (!file) return;
+    
+    try {
+      setUploadProgress(50);
+      setAnalyzing(true);
+      
+      // Call Gemini API
+      const result = await analyzeUIUX(file);
+      
+      if (result.status === 'success') {
+        // Store the analysis result and image in session storage
+        if (preview) {
+          sessionStorage.setItem('uploadedImage', preview);
+          sessionStorage.setItem('uploadedFileName', file.name || 'Uploaded Image');
+          sessionStorage.setItem('analysisResult', result.text);
+        }
+        
+        // Complete the progress bar
+        let progress = 50;
+        const analysisInterval = setInterval(() => {
+          progress += 10;
+          setUploadProgress(progress);
+          if (progress >= 100) {
+            clearInterval(analysisInterval);
+            
+            // Navigate to the feedback results page after analysis completes
+            setTimeout(() => {
+              navigate('/feedback-results');
+            }, 500);
+          }
+        }, 200);
+      } else {
+        throw new Error(result.error || 'Failed to analyze image');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred during analysis');
+      setUploading(false);
+      setAnalyzing(false);
+    }
   };
 
   const handleUpload = () => {
@@ -106,6 +142,18 @@ const ImageUpload: React.FC = () => {
   return (
     <div className="w-full max-w-2xl mx-auto my-12 px-4">
       <h2 className="text-2xl font-bold mb-6 text-center">Upload Your UI Design</h2>
+      
+      {error && (
+        <div className="mb-4 p-3 bg-red-100 border border-red-300 text-red-700 rounded">
+          <p>{error}</p>
+          <button 
+            onClick={() => setError(null)} 
+            className="text-sm underline mt-1"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
       
       {!preview ? (
         <div
@@ -152,6 +200,7 @@ const ImageUpload: React.FC = () => {
               onClick={() => {
                 setFile(null);
                 setPreview(null);
+                setError(null);
               }}
               className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full"
             >
@@ -177,9 +226,11 @@ const ImageUpload: React.FC = () => {
                 ></div>
               </div>
               <p className="text-center text-sm">
-                {uploadProgress < 100 
+                {uploadProgress < 50 
                   ? `Uploading... ${uploadProgress}%` 
-                  : 'Upload complete, redirecting...'}
+                  : uploadProgress < 100 
+                    ? `Analyzing with AI... ${uploadProgress}%` 
+                    : 'Analysis complete, redirecting...'}
               </p>
             </div>
           ) : (
@@ -190,7 +241,7 @@ const ImageUpload: React.FC = () => {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
               </svg>
-              <span>Continue to UX Feedback Setup</span>
+              <span>Analyze UI Design with AI</span>
             </button>
           )}
         </div>

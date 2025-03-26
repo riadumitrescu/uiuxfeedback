@@ -6,6 +6,8 @@ import HomePage from './components/HomePage';
 import UploadPage from './components/UploadPage';
 import LoadingPage from './components/LoadingPage';
 import FeedbackResults from './components/FeedbackResults';
+import FeedbackContext from './components/FeedbackContext';
+import PsychologyPrinciples from './pages/PsychologyPrinciples';
 
 function App() {
   // Use basename for GitHub Pages
@@ -22,8 +24,10 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/upload" element={<UploadPage />} />
+              <Route path="/context" element={<FeedbackContext />} />
               <Route path="/loading" element={<LoadingPage />} />
               <Route path="/results" element={<FeedbackResults />} />
+              <Route path="/principles" element={<PsychologyPrinciples />} />
             </Routes>
           </main>
 

@@ -37,8 +37,11 @@ const Header: React.FC = () => {
             <Link to="/" className="text-gray-600 dark:text-gray-300 hover:text-[#00D1D1] transition-colors duration-300">
               Home
             </Link>
-            <Link to="/upload" className="text-gray-600 dark:text-gray-300 hover:text-[#00D1D1] transition-colors duration-300">
-              Upload
+            <Link to="/principles" className="text-gray-600 dark:text-gray-300 hover:text-[#00D1D1] transition-colors duration-300">
+              Psychology Principles
+            </Link>
+            <Link to="/context" className="text-gray-600 dark:text-gray-300 hover:text-[#00D1D1] transition-colors duration-300">
+              Context
             </Link>
             <Link to="/results" className="text-gray-600 dark:text-gray-300 hover:text-[#00D1D1] transition-colors duration-300">
               Results

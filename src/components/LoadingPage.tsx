@@ -79,43 +79,61 @@ const LoadingPage: React.FC = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+    <div className="min-h-screen bg-gradient-to-b from-[#f0f9fa] to-[#e6f7f7] dark:from-gray-900 dark:to-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
             Analyzing Your Design
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Our AI is carefully analyzing your design to provide detailed feedback and recommendations.
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            Our AI is working its magic to provide you with detailed insights and recommendations.
           </p>
         </div>
 
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8">
-            <div className="space-y-6">
-              <div className="relative">
-                <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-[#00D1D1] transition-all duration-500 ease-out"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-                <div className="absolute top-0 left-0 right-0 flex justify-between text-sm text-gray-500 dark:text-gray-400">
-                  <span>0%</span>
-                  <span>{progress}%</span>
-                  <span>100%</span>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-10">
+            <div className="space-y-8">
+              {/* Illustration */}
+              <div className="flex justify-center">
+                <div className="w-24 h-24 bg-[#00D1D1]/10 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 border-4 border-[#00D1D1] border-t-transparent rounded-full animate-spin" />
                 </div>
               </div>
-
-              <div className="flex items-center justify-center space-x-3">
-                <div className="w-8 h-8 border-4 border-[#00D1D1] border-t-transparent rounded-full animate-spin" />
-                <span className="text-lg font-medium text-gray-900 dark:text-white">
+              
+              {/* Status */}
+              <div className="text-center">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                   {status}
-                </span>
+                </h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  We're examining every pixel to give you the best feedback
+                </p>
               </div>
-
-              <div className="text-center text-sm text-gray-500 dark:text-gray-400">
-                This may take a few moments. Please don't close this window.
+              
+              {/* Progress bar */}
+              <div className="pt-4">
+                <div className="relative">
+                  <div className="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-[#00D1D1] to-[#00A3A3] transition-all duration-500 ease-out"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                  
+                  {/* Progress indicators below the bar */}
+                  <div className="mt-2 flex justify-between text-sm text-gray-500 dark:text-gray-400">
+                    <span>0%</span>
+                    <span className="font-medium text-[#00D1D1]">{progress}% Complete</span>
+                    <span>100%</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="text-center text-sm text-gray-500 dark:text-gray-400 px-6 pt-2">
+                <div className="flex items-center justify-center gap-2">
+                  <span className="block w-1.5 h-1.5 rounded-full bg-[#00D1D1] animate-pulse"></span>
+                  <span>This may take a few moments. Please don't close this window.</span>
+                </div>
               </div>
             </div>
           </div>

@@ -38,27 +38,31 @@ const UploadPage: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-    if (selectedFile) {
-      sessionStorage.setItem('uploadedImage', previewUrl as string);
-      navigate('/loading');
+    if (selectedFile && previewUrl) {
+      // Store the image and file name in session storage
+      sessionStorage.setItem('uploadedImage', previewUrl);
+      sessionStorage.setItem('uploadedFileName', selectedFile.name);
+      
+      // Navigate to the context page
+      navigate('/context');
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+    <div className="min-h-screen bg-gradient-to-b from-[#f0f9fa] to-[#e6f7f7] dark:from-gray-900 dark:to-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
             Upload Your Design
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
             Upload a screenshot of your UI design to get instant AI-powered feedback and recommendations.
           </p>
         </div>
 
         <div className="max-w-2xl mx-auto">
           <div
-            className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 ${
+            className={`relative border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-200 bg-white dark:bg-gray-800 shadow-md ${
               isDragging
                 ? 'border-[#00D1D1] bg-[#00D1D1]/5'
                 : 'border-gray-300 dark:border-gray-600 hover:border-[#00D1D1] hover:bg-[#00D1D1]/5'
@@ -68,35 +72,40 @@ const UploadPage: React.FC = () => {
             onDrop={handleDrop}
           >
             {previewUrl ? (
-              <div className="space-y-4">
-                <img
-                  src={previewUrl}
-                  alt="Preview"
-                  className="max-h-96 mx-auto rounded-lg shadow-lg"
-                />
+              <div className="space-y-6">
+                <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg">
+                  <img
+                    src={previewUrl}
+                    alt="Preview"
+                    className="max-h-96 mx-auto rounded-lg"
+                  />
+                </div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {selectedFile?.name}
+                </p>
                 <div className="flex justify-center space-x-4">
                   <button
                     onClick={() => {
                       setSelectedFile(null);
                       setPreviewUrl(null);
                     }}
-                    className="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                    className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                   >
                     Choose Different Image
                   </button>
                   <button
                     onClick={handleSubmit}
-                    className="px-6 py-2 bg-[#00D1D1] text-white rounded-lg hover:bg-[#00D1D1]/90 transition-colors"
+                    className="px-8 py-3 bg-[#00D1D1] text-white rounded-xl hover:bg-[#00D1D1]/90 transition-colors shadow-lg font-medium"
                   >
-                    Analyze Design
+                    Customize Feedback
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="space-y-4">
-                <div className="w-16 h-16 mx-auto bg-[#00D1D1]/10 rounded-full flex items-center justify-center">
+              <div className="space-y-6">
+                <div className="w-20 h-20 mx-auto bg-[#00D1D1]/10 rounded-full flex items-center justify-center">
                   <svg
-                    className="w-8 h-8 text-[#00D1D1]"
+                    className="w-10 h-10 text-[#00D1D1]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -133,6 +142,13 @@ const UploadPage: React.FC = () => {
                     }
                   }}
                 />
+                
+                <div className="pt-6 border-t border-gray-100 dark:border-gray-700 mt-4">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Your image will be analyzed by our AI to provide specific UI/UX feedback.
+                    We do not store your images on our servers.
+                  </p>
+                </div>
               </div>
             )}
           </div>

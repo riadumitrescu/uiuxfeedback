@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "uiuxfeedback",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+} 

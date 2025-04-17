@@ -2,7 +2,7 @@
 
 A modern web application that uses AI to provide detailed, actionable UI/UX feedback on design uploads. Built with React, TypeScript, and Tailwind CSS, this tool helps designers and developers create more user-friendly interfaces.
 
-![UXFeedback AI](/public/assets/afterai.jpg)
+![UXFeedback AI](https://riadumitrescu.github.io/uiuxfeedback/assets/afterai.jpg)
 
 ## 🚀 Features
 

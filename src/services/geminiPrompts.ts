@@ -1,301 +1,415 @@
-// Design and psychology principles with their sources
-const designPrinciples = {
-  "Hick's Law": {
-    description: "More options leads to harder decisions",
-    source: "https://lawsofux.com/hicks-law/",
-    category: "Decision Making"
-  },
-  "Confirmation Bias": {
-    description: "People look for evidence that confirms what they think",
-    source: "https://www.nngroup.com/articles/confirmation-bias/",
-    category: "Cognitive Bias"
-  },
-  "Priming": {
-    description: "Previous stimuli influence users' decisions",
-    source: "https://www.interaction-design.org/literature/topics/priming",
-    category: "Behavioral Psychology"
-  },
-  "Cognitive Load": {
-    description: "Total amount of mental effort required to complete a task",
-    source: "https://www.nngroup.com/articles/minimize-cognitive-load/",
-    category: "Cognitive Psychology"
-  },
-  "Anchoring Bias": {
-    description: "Users rely heavily on the first piece of information they see",
-    source: "https://www.behavioraleconomics.com/resources/mini-encyclopedia-of-be/anchoring/",
-    category: "Cognitive Bias"
-  },
-  "Nudge": {
-    description: "Subtle hints can affect users' decisions",
-    source: "https://www.behavioraleconomics.com/resources/mini-encyclopedia-of-be/nudge/",
-    category: "Behavioral Design"
-  },
-  "Serial Position Effect": {
-    description: "Users best remember the first and last items in a list",
-    source: "https://www.interaction-design.org/literature/topics/serial-position-effect",
-    category: "Memory"
-  },
-  "Gestalt Principles": {
-    description: "Users perceive visual elements as organized patterns",
-    source: "https://www.interaction-design.org/literature/topics/gestalt-principles",
-    category: "Visual Perception"
-  },
-  "Fitts's Law": {
-    description: "Time to reach a target depends on distance and size",
-    source: "https://lawsofux.com/fittss-law/",
-    category: "Interaction Design"
-  },
-  "Progressive Disclosure": {
-    description: "Show only necessary information to reduce complexity",
-    source: "https://www.nngroup.com/articles/progressive-disclosure/",
-    category: "Information Architecture"
-  },
-  "Recognition over Recall": {
-    description: "Users recognize information better than recalling it",
-    source: "https://www.nngroup.com/articles/recognition-and-recall/",
-    category: "Memory"
-  },
-  "Aesthetic-Usability Effect": {
-    description: "Beautiful designs are perceived as more usable",
-    source: "https://www.nngroup.com/articles/aesthetic-usability-effect/",
-    category: "Visual Design"
-  },
-  "Peak-End Rule": {
-    description: "Users judge experiences by their peak and end moments",
-    source: "https://www.behavioraleconomics.com/resources/mini-encyclopedia-of-be/peak-end-rule/",
-    category: "Experience Design"
-  },
-  "Social Proof": {
-    description: "People look to others' actions to guide their decisions",
-    source: "https://www.behavioraleconomics.com/resources/mini-encyclopedia-of-be/social-proof/",
-    category: "Social Psychology"
-  },
-  "Loss Aversion": {
-    description: "Losses are psychologically more powerful than gains",
-    source: "https://www.behavioraleconomics.com/resources/mini-encyclopedia-of-be/loss-aversion/",
-    category: "Decision Making"
+export const initialAnalysisPrompt = `You are an expert UI/UX consultant with deep knowledge of design principles, accessibility standards, and industry best practices. Analyze this UI design and provide comprehensive, actionable feedback.
+
+CRITICAL INSTRUCTION: You MUST keep action steps and design principles in completely separate sections. NEVER combine them in the same section.
+
+For Action Steps:
+- MUST be concrete, implementable steps ONLY
+- NO design principles
+- NO numbered lists
+- NO explanations
+- NO references to design principles
+- NO "Design Principles Applied" section
+- Each step should be a single, clear action
+- Example of GOOD action steps:
+  "Add subtle shading to the hoodie to give it more depth"
+  "Refine the line weight of the hood line"
+  "Add a drawstring detail to the hood"
+- Example of BAD action steps (DO NOT DO THIS):
+  "Add subtle shading to the hoodie to give it more depth. 2. Slightly refine the line weight, making the hood line slightly thicker to emphasize it. 3. Consider adding a subtle drawstring detail to the hood. Design Principles Applied: 👁️ Gestalt Principles (making the image more easily recognizable), 🧠 Cognitive Load (reducing the mental effort needed to understand the image)"
+
+For Design Principles:
+- MUST be in the dedicated designPrinciples section ONLY
+- MUST NOT appear in action steps
+- MUST NOT be combined with implementation steps
+- MUST be clearly separated from action steps
+- Example of GOOD design principles section:
+  {
+    "designPrinciples": [
+      {
+        "name": "Gestalt Principles",
+        "description": "Making the image more easily recognizable",
+        "application": "Applied through clear visual hierarchy and grouping",
+        "effectiveness": "High - improves immediate recognition"
+      },
+      {
+        "name": "Cognitive Load",
+        "description": "Reducing mental effort needed to understand the image",
+        "application": "Simplified visual elements and clear relationships",
+        "effectiveness": "High - reduces processing time"
+      }
+    ]
   }
-};
 
-export const initialAnalysisPrompt = `You are an expert UI/UX designer and psychologist specializing in design principles and user behavior. Analyze the provided design image and provide detailed feedback based on the following structure:
+Structure your analysis in the following format:
 
-1. Design Category Analysis:
-   - Identify the design category (Mobile App, Web App, Data Visualization, Brand Identity, Marketing Design, or Enterprise UI)
-   - Evaluate against category-specific best practices
-   - Consider platform-specific guidelines and standards
+1. INDUSTRY BENCHMARKS & COMPETITIVE ANALYSIS
+- Compare against industry standards and competitors
+- Provide specific metrics and KPIs
+- Include industry-specific best practices
+- Reference successful case studies
+- Suggest innovative approaches
+- Include market positioning analysis
 
-2. Positive Feedback (What You're Doing Well):
-   For each strong point, provide:
-   - Category-Specific Aspect: What specific element is well-designed
-   - Visual Design: Color, typography, layout, and visual hierarchy
-   - Interaction Design: User flow, feedback, and responsiveness
-   - Implementation Details: Technical aspects and code considerations
-   - User Benefit: How it improves user experience
-   - Business Value: Impact on business goals
-   - Innovation Level: How it pushes design boundaries
-   - Design Principles Applied: List relevant principles from the following:
-     ${Object.entries(designPrinciples).map(([name, data]) => 
-       `- ${name}: ${data.description} (${data.category})`
-     ).join('\n     ')}
-   - Resources for Further Learning:
-     - Articles: Link to relevant articles
-     - Case Studies: Link to similar successful implementations
-     - Documentation: Link to official documentation
-     - Research: Link to academic papers or studies
+2. VISUAL REFERENCES & EXAMPLES
+- Provide specific visual examples of improvements
+- Include mockup suggestions
+- Reference successful design patterns
+- Show before/after comparisons
+- Include component library examples
+- Provide visual hierarchy examples
 
-3. Issues to Address:
-   For each issue, provide:
-   - Title: Clear, concise description
-   - Category: Type of issue (e.g., Usability, Accessibility, Performance)
-   - Priority: High, Medium, or Low
-   - Problem: Detailed description with specific examples
-   - Impact: How it affects users and business goals
-   - Action Steps: Specific, actionable recommendations
-   - Related Design Principle: Link to relevant principle from:
-     ${Object.entries(designPrinciples).map(([name, data]) => 
-       `- ${name}: ${data.description} (${data.category})`
-     ).join('\n     ')}
-   - Learning Resources: Links to quality sources about the principle
+3. IMPACT ANALYSIS & ROI
+- Quantify potential improvements
+- Estimate impact on user engagement
+- Calculate conversion rate potential
+- Assess business value
+- Measure performance impact
+- Evaluate accessibility benefits
 
-4. Learning Resources:
-   For each issue, provide:
-   - Articles: Link to relevant articles
-   - Case Studies: Link to similar problems and solutions
-   - Documentation: Link to official documentation
-   - Research: Link to academic papers or studies
+4. USER RESEARCH & TESTING RECOMMENDATIONS
+- Suggest specific user research methods
+- Recommend A/B testing scenarios
+- Propose usability testing approaches
+- Include survey questions
+- Suggest analytics tracking
+- Provide user journey mapping
 
-Format your response in markdown with clear sections and bullet points. Use specific examples and measurements where possible.`;
+5. VISUAL HIERARCHY & LAYOUT
+- Analyze the visual hierarchy and information architecture
+- Evaluate the use of white space and layout organization
+- Assess the balance and visual weight of elements
+- Identify any visual clutter or overwhelming areas
+- Provide specific recommendations for improvement
 
-export const uiComponentPrompt = `As an expert design analyst, evaluate the UI components with specialized attention to:
+6. ACCESSIBILITY & INCLUSIVITY
+- Evaluate WCAG 2.1 compliance (Level AA)
+- Check color contrast ratios
+- Assess keyboard navigation
+- Review screen reader compatibility
+- Identify potential barriers for users with disabilities
+- Provide specific accessibility improvements
 
-1. Category-Specific Component Effectiveness
-   - Platform-specific guidelines
-   - Category-specific patterns
-   - Accessibility requirements
-   - Performance considerations
-   - Component hierarchy
-   - State management
-   - Error handling
-   - Loading states
+7. USER INTERACTION & FEEDBACK
+- Analyze interactive elements and their feedback mechanisms
+- Evaluate form design and validation
+- Assess error prevention and recovery
+- Review loading states and transitions
+- Identify potential user confusion points
+- Suggest specific interaction improvements
 
-2. Visual System Analysis
-   - Color psychology and meaning
-   - Typography hierarchy
-   - Spacing and rhythm
-   - Visual feedback states
-   - Design system consistency
-   - Visual hierarchy
-   - Brand alignment
-   - Accessibility contrast
+8. MOBILE RESPONSIVENESS
+- Evaluate mobile-first design principles
+- Assess touch target sizes
+- Review responsive breakpoints
+- Check mobile navigation patterns
+- Identify mobile-specific issues
+- Provide mobile optimization recommendations
 
-3. Interaction Pattern Evaluation
-   - Category-specific patterns
-   - User flow optimization
-   - Error prevention
-   - Progressive disclosure
-   - Gesture support
-   - Keyboard navigation
-   - Focus management
-   - State transitions
+9. PERFORMANCE & OPTIMIZATION
+- Analyze potential performance bottlenecks
+- Evaluate image optimization opportunities
+- Assess loading strategies
+- Review animation performance
+- Identify optimization opportunities
+- Provide specific performance recommendations
 
-4. Technical Implementation
-   - Component reusability
-   - Performance optimization
-   - Maintainability
-   - Cross-platform compatibility
-   - Code organization
-   - Asset optimization
-   - Loading performance
-   - Error boundaries
+10. BRANDING & CONSISTENCY
+- Evaluate brand alignment
+- Assess design system consistency
+- Review typography and color usage
+- Check component consistency
+- Identify branding opportunities
+- Suggest specific consistency improvements
 
-Document each component:
-- Name and type
-- Category-specific function
-- Implementation details
-- Specific coordinates
-- State management
-- Error handling
-- Loading states
-- Accessibility features
+For each issue identified, provide:
+1. Clear, specific title
+2. Detailed problem description
+3. Impact analysis with metrics
+4. Action Steps (MUST be concrete, implementable steps ONLY. NO design principles, NO numbered lists, NO explanations)
+5. Visual examples and references
+6. Industry benchmarks
+7. Testing recommendations
+8. Implementation priority
 
-Provide structured feedback highlighting both strengths and areas for improvement.`;
+Format your response as JSON with the following structure:
+{
+  "issues": [
+    {
+      "title": "string",
+      "problem": "string",
+      "impact": {
+        "description": "string",
+        "metrics": {
+          "userEngagement": "string",
+          "conversionRate": "string",
+          "performance": "string",
+          "accessibility": "string"
+        },
+        "businessValue": "string"
+      },
+      "actionSteps": ["string"], // MUST be concrete, implementable steps ONLY. NO design principles.
+      "priority": "high|medium|low",
+      "category": "string",
+      "coordinates": {
+        "x": number,
+        "y": number,
+        "width": number,
+        "height": number
+      },
+      "visualExamples": {
+        "before": "string",
+        "after": "string",
+        "references": ["string"]
+      },
+      "industryBenchmarks": {
+        "metrics": ["string"],
+        "competitors": ["string"],
+        "bestPractices": ["string"]
+      },
+      "testingRecommendations": {
+        "abTesting": ["string"],
+        "userResearch": ["string"],
+        "analytics": ["string"]
+      },
+      "implementation": {
+        "steps": ["string"],
+        "codeExamples": ["string"],
+        "resources": ["string"]
+      },
+      "resources": {
+        "articles": ["string"],
+        "caseStudies": ["string"],
+        "research": ["string"],
+        "tools": ["string"]
+      }
+    }
+  ],
+  "positive": [
+    {
+      "category": "string",
+      "detail": "string",
+      "effectiveness": "string",
+      "impact": {
+        "description": "string",
+        "metrics": {
+          "userEngagement": "string",
+          "conversionRate": "string",
+          "performance": "string",
+          "accessibility": "string"
+        },
+        "businessValue": "string"
+      },
+      "context": "string",
+      "learning": "string",
+      "bestPracticeAlignment": "string",
+      "implementationDetails": "string",
+      "userBenefit": "string",
+      "businessValue": "string",
+      "innovationLevel": "string",
+      "industryBenchmarks": {
+        "metrics": ["string"],
+        "competitors": ["string"],
+        "bestPractices": ["string"]
+      },
+      "resources": {
+        "articles": ["string"],
+        "caseStudies": ["string"],
+        "documentation": ["string"],
+        "research": ["string"],
+        "tools": ["string"]
+      }
+    }
+  ],
+  "designPrinciples": [
+    {
+      "name": "string",
+      "description": "string",
+      "application": "string",
+      "effectiveness": "string",
+      "resources": {
+        "articles": ["string"],
+        "caseStudies": ["string"],
+        "research": ["string"],
+        "documentation": ["string"],
+        "tools": ["string"],
+        "examples": ["string"]
+      },
+      "relatedPrinciples": ["string"],
+      "bestPractices": ["string"],
+      "commonPitfalls": ["string"],
+      "implementation": {
+        "steps": ["string"],
+        "codeExamples": ["string"],
+        "visualExamples": ["string"]
+      }
+    }
+  ],
+  "summary": {
+    "overallImpact": "string",
+    "keyMetrics": ["string"],
+    "priorityAreas": ["string"],
+    "recommendedActions": ["string"],
+    "testingStrategy": "string",
+    "implementationTimeline": "string"
+  }
+}`;
 
-export const uxEvaluationPrompt = `As a senior UX consultant, conduct a detailed evaluation focusing on:
+export const designPrincipleResourcesPrompt = `You are an expert UI/UX consultant with deep knowledge of design principles and their resources. When a user taps on a design principle, provide relevant learning resources for that specific principle.
 
-What You're Doing Well:
-• [Category-Specific Pattern]: [Detailed implementation]
-  Why it's effective: [Category-specific benefits]
-  Impact: [Specific user satisfaction metrics]
-  Industry context: [Category-specific best practices]
-  Learning value: [Key UX principle demonstrated]
-  Best practice alignment: [Category standards]
-  Implementation details: [Specific UX choices]
-  User benefit: [Experience improvements]
-  Business value: [Business impact]
-  Innovation level: [UX innovation assessment]
+For the design principle "{principleName}", provide:
+1. At least 2 high-quality articles with URLs that explain this principle
+2. At least 1 relevant case study with URL showing this principle in action
+3. At least 1 research paper with URL that validates this principle
+4. Additional resources (optional):
+   - Documentation
+   - Tools
+   - Examples
+   - Related principles
 
-• [User Flow]: [Specific observation]
-  Why it works: [Flow optimization details]
-  Impact: [Efficiency metrics]
-  Industry context: [Category patterns]
-  Learning point: [Flow design principle]
-  Best practice alignment: [Category guidelines]
-  Implementation details: [Flow specifics]
-  User benefit: [Task completion impact]
-  Business value: [Process efficiency]
-  Innovation level: [Flow innovation]
+Format your response as JSON:
+{
+  "principleName": "string",
+  "resources": {
+    "articles": ["string"], // URLs to articles
+    "caseStudies": ["string"], // URLs to case studies
+    "research": ["string"], // URLs to research papers
+    "documentation": ["string"],
+    "tools": ["string"],
+    "examples": ["string"],
+    "relatedPrinciples": ["string"]
+  }
+}`;
 
-• [Interaction Design]: [Specific achievement]
-  Why it's effective: [Interaction success details]
-  Impact: [User engagement metrics]
-  Industry context: [Category patterns]
-  Learning value: [Interaction design insight]
-  Best practice alignment: [Category standards]
-  Implementation details: [Interaction specifics]
-  User benefit: [Usability improvements]
-  Business value: [Engagement impact]
-  Innovation level: [Interaction innovation]
+export const uiComponentPrompt = `Analyze this specific UI component in detail, focusing on:
+1. Component-specific best practices
+2. Accessibility requirements
+3. Interaction patterns
+4. Visual design principles
+5. Performance considerations
+6. Cross-browser compatibility
+7. Mobile responsiveness
+8. State management
+9. Error handling
+10. User feedback mechanisms
 
-Areas for Improvement:
-1. **[Category-Specific UX Issue]** (PRIORITY)
-   Problem: [Detailed UX challenge]
-   Impact: [Specific user experience impact]
-   Recommendation: [Category-specific UX solution]
-   Learning Resources: [Category-specific references]
-   Implementation Guide: [Step-by-step improvements]
-   Best Practices: [UX best practices]
-   Success Metrics: [Improvement measurements]
-   Coordinates: x: X%, y: Y%, width: W%, height: H%
+CRITICAL INSTRUCTION: You MUST keep action steps and design principles in completely separate sections. NEVER combine them in the same section.
 
-2. [Continue with additional UX issues...]
+For Action Steps:
+- MUST be concrete, implementable steps ONLY
+- NO design principles
+- NO numbered lists
+- NO explanations
+- NO references to design principles
+- NO "Design Principles Applied" section
+- Each step should be a single, clear action
+- Example of GOOD action steps:
+  "Add subtle shading to the hoodie to give it more depth"
+  "Refine the line weight of the hood line"
+  "Add a drawstring detail to the hood"
+- Example of BAD action steps (DO NOT DO THIS):
+  "Add subtle shading to the hoodie to give it more depth. 2. Slightly refine the line weight, making the hood line slightly thicker to emphasize it. 3. Consider adding a subtle drawstring detail to the hood. Design Principles Applied: 👁️ Gestalt Principles (making the image more easily recognizable), 🧠 Cognitive Load (reducing the mental effort needed to understand the image)"
 
-Base analysis on observable elements and interactions. Provide specific, actionable recommendations supported by category-specific UX research and best practices.`;
+For Design Principles:
+- MUST be in the dedicated designPrinciples section ONLY
+- MUST NOT appear in action steps
+- MUST NOT be combined with implementation steps
+- MUST be clearly separated from action steps
+- Example of GOOD design principles section:
+  {
+    "designPrinciples": [
+      {
+        "name": "Gestalt Principles",
+        "description": "Making the image more easily recognizable",
+        "application": "Applied through clear visual hierarchy and grouping",
+        "effectiveness": "High - improves immediate recognition"
+      },
+      {
+        "name": "Cognitive Load",
+        "description": "Reducing mental effort needed to understand the image",
+        "application": "Simplified visual elements and clear relationships",
+        "effectiveness": "High - reduces processing time"
+      }
+    ]
+  }
 
-export const genericPrompt = `As an expert design consultant, analyze this design with specialized attention to:
+Provide specific, actionable recommendations with:
+- Code examples
+- Visual mockups
+- Industry benchmarks
+- Testing scenarios
+- Implementation steps
+- Performance metrics
 
-What You're Doing Well:
-• [Category-Specific Aspect]: [Detailed observation]
-  Why it's effective: [Technical and psychological effectiveness]
-  Impact: [Specific user/business impact]
-  Industry context: [Category-specific standards]
-  Learning point: [Underlying design principle]
-  Best practice alignment: [Category guidelines]
-  Implementation details: [Specific choices]
-  User benefit: [Experience impact]
-  Business value: [Business impact]
-  Innovation level: [Innovation assessment]
-  Design Principles Applied: [List specific principles with examples]
-  Resources for Further Learning:
-    - [Link to relevant article/resource]
-    - [Link to case study]
-    - [Link to design system documentation]
-    - [Link to research paper]
+For each design principle applied, provide:
+- Name and description
+- How it's implemented
+- Effectiveness assessment
+- Best practices and common pitfalls
+- Implementation guidance`;
 
-• [Visual Design]: [Specific observation]
-  Why it works: [Design effectiveness]
-  Impact: [User perception]
-  Industry context: [Design trends]
-  Learning value: [Design principles]
-  Best practice alignment: [Design standards]
-  Implementation details: [Design choices]
-  User benefit: [Visual impact]
-  Business value: [Brand impact]
-  Innovation level: [Design innovation]
-  Design Principles Applied: [List specific principles with examples]
-  Resources for Further Learning:
-    - [Link to relevant article/resource]
-    - [Link to case study]
-    - [Link to design system documentation]
-    - [Link to research paper]
+export const uxEvaluationPrompt = `Evaluate the user experience considering:
+1. User goals and tasks
+2. Information architecture
+3. Navigation patterns
+4. Content hierarchy
+5. Interaction design
+6. Feedback mechanisms
+7. Error prevention
+8. Performance optimization
+9. Accessibility compliance
+10. Mobile-first principles
 
-• [Interaction Design]: [Specific achievement]
-  Why it's effective: [Interaction success]
-  Impact: [User engagement]
-  Industry context: [Interaction patterns]
-  Learning value: [UX principles]
-  Best practice alignment: [UX standards]
-  Implementation details: [Interaction choices]
-  User benefit: [Usability impact]
-  Business value: [Engagement impact]
-  Innovation level: [Interaction innovation]
-  Design Principles Applied: [List specific principles with examples]
-  Resources for Further Learning:
-    - [Link to relevant article/resource]
-    - [Link to case study]
-    - [Link to design system documentation]
-    - [Link to research paper]
+CRITICAL INSTRUCTION: You MUST keep action steps and design principles in completely separate sections. NEVER combine them in the same section.
 
-Areas for Improvement:
-1. **[Category-Specific Issue]** (PRIORITY)
-   Problem: [Detailed issue description]
-   Impact: [Specific impact]
-   Recommendation: [Category-specific solution]
-   Learning Resources: [Category references]
-   Implementation Guide: [Improvement steps]
-   Best Practices: [Category best practices]
-   Success Metrics: [Measurement criteria]
-   Coordinates: x: X%, y: Y%, width: W%, height: H%
+For Action Steps:
+- MUST be concrete, implementable steps ONLY
+- NO design principles
+- NO numbered lists
+- NO explanations
+- NO references to design principles
+- NO "Design Principles Applied" section
+- Each step should be a single, clear action
+- Example of GOOD action steps:
+  "Add subtle shading to the hoodie to give it more depth"
+  "Refine the line weight of the hood line"
+  "Add a drawstring detail to the hood"
+- Example of BAD action steps (DO NOT DO THIS):
+  "Add subtle shading to the hoodie to give it more depth. 2. Slightly refine the line weight, making the hood line slightly thicker to emphasize it. 3. Consider adding a subtle drawstring detail to the hood. Design Principles Applied: 👁️ Gestalt Principles (making the image more easily recognizable), 🧠 Cognitive Load (reducing the mental effort needed to understand the image)"
 
-2. [Continue with 2-3 more category-specific issues...]
+For Design Principles:
+- MUST be in the dedicated designPrinciples section ONLY
+- MUST NOT appear in action steps
+- MUST NOT be combined with implementation steps
+- MUST be clearly separated from action steps
+- Example of GOOD design principles section:
+  {
+    "designPrinciples": [
+      {
+        "name": "Gestalt Principles",
+        "description": "Making the image more easily recognizable",
+        "application": "Applied through clear visual hierarchy and grouping",
+        "effectiveness": "High - improves immediate recognition"
+      },
+      {
+        "name": "Cognitive Load",
+        "description": "Reducing mental effort needed to understand the image",
+        "application": "Simplified visual elements and clear relationships",
+        "effectiveness": "High - reduces processing time"
+      }
+    ]
+  }
 
-Provide specific, actionable insights based on observable elements and interactions, tailored to the design category.`;
+Provide detailed analysis with:
+- User research recommendations
+- A/B testing scenarios
+- Analytics tracking suggestions
+- Industry benchmarks
+- Visual examples
+- Implementation guidelines
+
+For each design principle applied, provide:
+- Name and description
+- How it's implemented
+- Effectiveness assessment
+- Best practices and common pitfalls
+- Implementation guidance`;

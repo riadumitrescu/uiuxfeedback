@@ -1,0 +1,10 @@
+# UX Feedback AI - Mandates
+
+## Navigation Structure
+- The main navigation should NOT include "Psychology Principles" page
+- Primary navigation items: Home, Context, Results
+
+## File Organization
+- All media assets should be stored in the public/assets folder
+- Maintain clear separation of concerns in file structure
+- Follow consistent naming conventions for files and components 

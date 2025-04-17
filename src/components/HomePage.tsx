@@ -116,7 +116,12 @@ const HomePage: React.FC = () => {
               className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg group hover:shadow-2xl transition-all duration-300"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded-lg mb-4 relative overflow-hidden">
+              <div className="aspect-video rounded-lg mb-4 relative overflow-hidden">
+                <img 
+                  src={`${process.env.PUBLIC_URL}/assets/beforeai.jpg`} 
+                  alt="Original design before AI feedback" 
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-[#00D1D1]/5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
               </div>
               <h3 className="text-xl font-semibold mb-2">Before Feedback</h3>
@@ -126,7 +131,12 @@ const HomePage: React.FC = () => {
               className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg group hover:shadow-2xl transition-all duration-300"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded-lg mb-4 relative overflow-hidden">
+              <div className="aspect-video rounded-lg mb-4 relative overflow-hidden">
+                <img 
+                  src={`${process.env.PUBLIC_URL}/assets/afterai.jpg`} 
+                  alt="Enhanced design after AI recommendations" 
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-[#00D1D1]/5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
               </div>
               <h3 className="text-xl font-semibold mb-2">After Implementation</h3>

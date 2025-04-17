@@ -1,0 +1,21 @@
+# UX Feedback AI - Development Roadmap
+
+## Recent Changes
+
+### 2024-04-01
+- Added before/after images to the homepage transformation section
+  - Used assets/beforeai.jpg for the "Before Feedback" section
+  - Used assets/afterai.jpg for the "After Implementation" section
+  - Enhanced visual presentation with actual design examples
+- Removed "Psychology Principles" page from all navigation menus
+  - Removed from main desktop navigation in Header.tsx
+  - Affects the main navigation across all pages
+- Created "assets" folder in public directory
+  - This folder will be used to store media files, images, and other static assets
+  - Implementing a more organized file structure for better maintainability
+
+## Upcoming Tasks
+- Organize existing media files by moving them to the assets folder
+- Update references to media files if needed
+- Consider implementing a mobile menu for better mobile navigation
+- Continue improving SEO optimization for better search engine visibility 
